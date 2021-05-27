@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Дарья Беляева](https://up.htmlacademy.ru/javascript/23/user/1732235).
-* Наставник: `Иван Тимошенко`(https://up.htmlacademy.ru/javascript/23/user/637715).
+* Наставник: [Иван Тимошенко](https://up.htmlacademy.ru/javascript/23/user/637715).
 
 ---
 

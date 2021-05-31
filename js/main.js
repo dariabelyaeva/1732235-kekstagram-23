@@ -8,3 +8,8 @@ function getNumber(min, max) {
   return 'Требуется указать только положительное число.';
 }
 getNumber(50, 100);
+
+function checkStringLength(comment, maxLength) {
+  return (comment <= maxLength) ? 'true' : 'false';
+}
+checkStringLength(120, 140);

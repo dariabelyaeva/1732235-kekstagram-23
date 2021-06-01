@@ -1,15 +1,12 @@
-function getNumber(min, max) {
-  if(min >= max && min >= 0 && max >= 0) {
-    max += min;
+function getRandomNumber(min, max) {
+  if (min < 0 || max < 0 || min >= max) {
+    return null;
   }
-  if(min >= 0 && max >= 0) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;  // Источник: https://html5css.ru/js/js_random.php
-  }
-  return 'Требуется указать только положительное число.';
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-getNumber(50, 100);
+getRandomNumber(100, 100);
 
-function checkStringLength(comment, maxLength) {
-  return (comment <= maxLength) ? 'true' : 'false';
+function checkStringLength(inputString, maxLength) {
+  return (inputString <= maxLength);
 }
 checkStringLength(120, 140);

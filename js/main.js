@@ -29,14 +29,13 @@ const createComments = () => Object.entries({
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
-const createListComments = new Array(PHOTOS_COUNT).fill().map(() => createComments());
 
 const createPublication = () => ({
   id: getUniqueArrayElement(PUBLICATIONS_IDS),
   url: getUniqueArrayElement(PHOTOS_URLS),
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomNumber(15, 200),
-  comments: getUniqueArrayElement(createListComments),
+  comments: new Array(getRandomNumber(1, 10)).fill().map(() => createComments()),
 });
 const publicationPhotos = () => new Array(PHOTOS_COUNT).fill('').map(() => createPublication());
 publicationPhotos();

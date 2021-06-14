@@ -24,4 +24,6 @@ const createPublication = () => ({
   comments: new Array(getRandomNumber(1, 10)).fill().map(() => createComments()),
 });
 
-export {PHOTOS_COUNT, createPublication};
+const publishPhotos = () => new Array(PHOTOS_COUNT).fill('').map(() => createPublication());
+
+export {PHOTOS_COUNT, createPublication, publishPhotos};

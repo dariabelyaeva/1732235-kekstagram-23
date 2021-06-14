@@ -4,14 +4,11 @@ function getRandomNumber(min, max) {
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-getRandomNumber(100, 100);
 function checkStringMaxLength(string, maxLength) {
   return (string.length <= maxLength);
 }
-checkStringMaxLength('text', 140);
-
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 const getUniqueArrayElement = (elements) => elements.splice(getRandomNumber(0, elements.length - 1), 1)[0];
 
-export {getRandomNumber, getRandomArrayElement, getUniqueArrayElement};
+export {getRandomNumber, getRandomArrayElement, getUniqueArrayElement, checkStringMaxLength};

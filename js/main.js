@@ -1,2 +1,2 @@
-import {createPicturePublication} from './miniature.js';
-createPicturePublication();
+import {renderPictures} from './miniature.js';
+renderPictures();

@@ -1,12 +1,12 @@
-import {publishPhotos} from './publication.js';
+import {createPhotos} from './publication.js';
 
-const pictureTemplate = document.querySelector('#picture')
-  .content;
+const renderPictures = () => {
+  const pictureTemplate = document.querySelector('#picture')
+    .content;
 
-const publishedPublication = publishPhotos();
-const publicationPictures = document.createDocumentFragment();
+  const publishedPublication = createPhotos();
+  const publicationPictures = document.createDocumentFragment();
 
-const createPicturePublication = () => {
   publishedPublication.forEach(({url, likes, comments}) => {
     const picture = pictureTemplate.cloneNode(true);
     picture.querySelector('.picture__img').src = url;
@@ -14,6 +14,10 @@ const createPicturePublication = () => {
     picture.querySelector('.picture__likes').textContent = likes;
     publicationPictures.appendChild(picture);
   });
+  const photos= document.querySelector('.pictures');
+  photos.classList.remove('hidden');
+
+  photos.appendChild(publicationPictures);
 };
 
-export {createPicturePublication};
+export {renderPictures};

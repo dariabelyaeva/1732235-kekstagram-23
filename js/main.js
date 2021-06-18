@@ -1,1 +1,2 @@
-import './publication.js';
+import {renderPictures} from './miniature.js';
+renderPictures();

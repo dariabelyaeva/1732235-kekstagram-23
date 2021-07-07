@@ -18,11 +18,10 @@ const hashTagInputHandler = (evt) => {
   }
   tagsInput.reportValidity();
 };
-const descriptionInputHandler = () => {
-  const descriptionLength = descriptionInput.value.length;
-
-  if (descriptionLength > COMMENT_MAX_SYMBOLS) {
-    descriptionInput.setCustomValidity(`Максимальное количество символов ${COMMENT_MAX_SYMBOLS}. Удалите ${descriptionLength - COMMENT_MAX_SYMBOLS} символов.`);
+const descriptionInputHandler = (evt) => {
+  const descriptionInputForm = evt.target;
+  if (descriptionInputForm.value.length > COMMENT_MAX_SYMBOLS) {
+    descriptionInput.setCustomValidity(`Максимальное количество символов ${COMMENT_MAX_SYMBOLS}. Удалите ${descriptionInputForm.value.length - COMMENT_MAX_SYMBOLS} символов.`);
   } else {
     descriptionInput.setCustomValidity('');
   }

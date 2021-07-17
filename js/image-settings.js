@@ -4,15 +4,14 @@ const SCALE_MIN_VALUE_PERCENT = 25;
 const SCALE_MAX_VALUE_PERCENT = 100;
 const DEFAULT_SCALE_VALUE_PERCENT = 100;
 
-const uploadForm = document.querySelector('.img-upload__form');
-const scaleControl = uploadForm.querySelector('.scale__control--value');
-const scaleSmaller = uploadForm.querySelector('.scale__control--smaller');
-const scaleBigger = uploadForm.querySelector('.scale__control--bigger');
-const uploadPhoto = uploadForm.querySelector('.img-upload__preview');
+const scaleControl = document.querySelector('.scale__control--value');
+const scaleSmaller = document.querySelector('.scale__control--smaller');
+const scaleBigger = document.querySelector('.scale__control--bigger');
+const uploadPhoto = document.querySelector('.img-upload__preview');
 const imageEffects = document.querySelector('.img-upload__effects');
-const slider = uploadForm.querySelector('.effect-level__slider');
-const effectLevel = uploadForm.querySelector('.effect-level__value');
-const imageUploadEffectLevel = uploadForm.querySelector('.img-upload__effect-level');
+const slider = document.querySelector('.effect-level__slider');
+const effectLevel = document.querySelector('.effect-level__value');
+const imageUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 
 const scalePhotoHandler = (scale) => {
   uploadPhoto.style.transform = `scale(${scale/100})`;
@@ -112,3 +111,5 @@ slider.noUiSlider.on('update', (_, handle, unencoded) => {
   uploadPhoto.style.filter = `${effectDescription.filter}(${level}${effectDescription.unit})`;
 });
 imageEffects.addEventListener('click', addEffectHandler);
+
+export {resetEffect};

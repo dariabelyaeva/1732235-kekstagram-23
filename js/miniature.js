@@ -1,10 +1,7 @@
-import {createPhotos} from './publication.js';
-
-const renderPictures = () => {
+const renderPictures = (publications) => {
   const pictureTemplate = document.querySelector('#picture')
     .content;
 
-  const publications = createPhotos();
   const publicationPictures = document.createDocumentFragment();
 
   publications.forEach(({url, likes, comments}) => {

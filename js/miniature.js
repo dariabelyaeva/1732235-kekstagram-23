@@ -16,7 +16,8 @@ const renderPictures = (publications) => {
   });
   const photos = document.querySelector('.pictures');
   photos.classList.remove('hidden');
-
+  const oldPhotos = document.querySelectorAll('.picture');
+  oldPhotos.forEach((photo) => {photo.remove();});
   photos.appendChild(publicationPictures);
 };
 

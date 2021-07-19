@@ -3,9 +3,10 @@ import {showMessageError} from './form.js';
 import './image-settings.js';
 import {getImages} from './api.js';
 import './preview.js';
-
-const PHOTOS_COUNT = 25;
+import {showFilters} from './filter.js';
 
 getImages((publications) => {
-  renderPictures(publications.slice(0, PHOTOS_COUNT));
+  renderPictures(publications);
+  showFilters();
 }, showMessageError);
+

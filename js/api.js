@@ -4,13 +4,13 @@ const getImages = (onSuccess, onError) => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error(`${response.status}`);
+      throw new Error('Ошибка загрузки');
     })
     .then((publications) => {
       onSuccess(publications);
     })
     .catch((error) => {
-      onError(error);
+      onError(error.message);
     });
 };
 
@@ -26,11 +26,11 @@ const sendImages = (onSuccess, onError, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onError('Не удалось отправить форму. Попробуйте ещё раз');
+        throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
-    .catch(() => {
-      onError('Не удалось отправить форму. Попробуйте ещё раз');
+    .catch((error) => {
+      onError(error.message);
     });
 };
 

@@ -1,4 +1,4 @@
-import {openPreviewHandler} from './preview.js';
+import {openPreviewHandler} from './pictureFullscreen.js';
 
 const renderPictures = (publications) => {
   const pictureTemplate = document.querySelector('#picture')

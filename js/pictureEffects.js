@@ -7,7 +7,7 @@ const DEFAULT_SCALE_VALUE_PERCENT = 100;
 const scaleControl = document.querySelector('.scale__control--value');
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
-const uploadPhoto = document.querySelector('.img-upload__preview');
+const uploadPhoto = document.querySelector('.img-upload__preview img');
 const imageEffects = document.querySelector('.img-upload__effects');
 const slider = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level__value');
@@ -107,7 +107,6 @@ slider.noUiSlider.on('update', (_, handle, unencoded) => {
   const effectKey = document.querySelector('input[name=effect]:checked').value;
   const effectDescription = effects[effectKey];
   effectLevel.value = level;
-  getDefaultScale();
   imageUploadEffectLevel.classList.remove('hidden');
   uploadPhoto.style.filter = `${effectDescription.filter}(${level}${effectDescription.unit})`;
 });

@@ -1,4 +1,4 @@
-import {isEscEvent} from './util.js';
+import {isEscEvent} from './utils/isEscEvent.js';
 
 const COMMENTS_STEP = 5;
 const body = document.body;

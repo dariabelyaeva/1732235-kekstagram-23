@@ -1,9 +1,9 @@
-import {renderPictures} from './miniature.js';
-import {showMessageError} from './form.js';
-import './image-settings.js';
+import {renderPictures} from './renderPictures.js';
+import {showMessageError} from './pictureForm.js';
+import './pictureEffects.js';
 import {getImages} from './api.js';
-import './preview.js';
-import {showFilters} from './filter.js';
+import './pictureFullscreen.js';
+import {showFilters} from './picturesFilters.js';
 
 getImages((publications) => {
   renderPictures(publications);

@@ -1,7 +1,7 @@
 import {debounce} from './utils/debounce.js';
-import {renderPictures} from './miniature.js';
+import {renderPictures} from './renderPictures.js';
 import {getImages} from './api.js';
-import {showMessageError} from './form.js';
+import {showMessageError} from './pictureForm.js';
 
 
 const COUNT_RANDOM_IMAGES = 10;

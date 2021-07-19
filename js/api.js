@@ -1,8 +1,16 @@
-const getImages = (onSuccess) => {
+const getImages = (onSuccess, onError) => {
   fetch('https://23.javascript.pages.academy/kekstagram/data')
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status}`);
+    })
     .then((publications) => {
       onSuccess(publications);
+    })
+    .catch((error) => {
+      onError(error);
     });
 };
 

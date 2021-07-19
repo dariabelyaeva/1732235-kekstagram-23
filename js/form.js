@@ -13,11 +13,7 @@ const editPanel = document.querySelector('.img-upload__overlay');
 const hashTagInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 const errorTemplate = document.querySelector('#error').content;
-const error = document.querySelector('.error');
-const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content;
-const success = document.querySelector('.success');
-const successButton = successTemplate.querySelector('.success__button');
 
 //функция сброса данных формы
 const resetForm = () => {
@@ -31,11 +27,11 @@ const modalCloseEscHandler = (evt) => {
     modalCloseHandler();
   }
 };
+document.addEventListener('keydown', modalCloseEscHandler);
 //открытие формы
 const modalOpenHandler = () => {
   editPanel.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', modalCloseEscHandler);
 };
 uploadButton.addEventListener('click', modalOpenHandler);
 //закрытие формы и удаление обработчика Esc
@@ -43,7 +39,6 @@ function modalCloseHandler () {
   editPanel.classList.add('hidden');
   body.classList.remove('modal-open');
   resetForm();
-  document.removeEventListener('keydown', modalCloseEscHandler);
 }
 uploadCancelButton.addEventListener('click', modalCloseHandler);
 
@@ -78,57 +73,59 @@ const descriptionInputHandler = (evt) => {
 };
 descriptionInput.addEventListener('input', descriptionInputHandler);
 
-//закрытие сообщения об ошибке
-const closeMessageSuccessHandler = () => {
-  success.classList.add('hidden');
-  success.remove();
-};
-  // при нажатии на Esc
-const closeMessageSuccessEscHandler = (evt) => {
-  if (isEscEvent(evt) && evt.target === success) {
-    closeMessageSuccessHandler();
-  }
-};
-  // при нажатии вне поля
-const closeMessageSuccessOutHandler = (evt) => {
-  if (evt.target === success) {
-    closeMessageSuccessHandler();
-  }
-};
-//ошибка отправки
+//успешная отправка
 const showMessageSuccess = () => {
-  const successElement = errorTemplate.cloneNode(true);
+  const successElement = successTemplate.cloneNode(true);
   body.appendChild(successElement);
   modalCloseHandler();
-
-  successButton.addEventListener('click', closeMessageSuccessHandler);
-  document.addEventListener('click', closeMessageSuccessEscHandler);
-  document.addEventListener('keydown', closeMessageSuccessOutHandler);
-};
-
-//закрытие сообщения об ошибке
-const closeMessageErrorHandler = () => {
-  error.classList.add('hidden');
-  error.remove();
-};
+  const success = document.querySelector('.success');
+  const successButton = document.querySelector('.success__button');
+  //закрытие сообщения об успешной отправке
+  const closeMessageSuccessHandler = () => {
+    success.classList.add('hidden');
+    success.remove();
+  };
   // при нажатии на Esc
-const closeMessageErrorEscHandler = (evt) => {
-  if (isEscEvent(evt) && evt.target === error) {
-    closeMessageErrorHandler();
-  }
-};
+  const closeMessageSuccessEscHandler = (evt) => {
+    if (isEscEvent(evt)) {
+      closeMessageSuccessHandler();
+    }
+  };
   // при нажатии вне поля
-const closeMessageErrorOutHandler = (evt) => {
-  if (evt.target === error) {
-    closeMessageErrorHandler();
-  }
+  const closeMessageSuccessOutHandler = (evt) => {
+    if (evt.target === success) {
+      closeMessageSuccessHandler();
+    }
+  };
+  successButton.addEventListener('click', closeMessageSuccessHandler);
+  document.addEventListener('click', closeMessageSuccessOutHandler);
+  document.addEventListener('keydown', closeMessageSuccessEscHandler);
 };
-//ошибка отправки
+
+// ошибка отправки
 const showMessageError = () => {
   const errorElement = errorTemplate.cloneNode(true);
   body.appendChild(errorElement);
   modalCloseHandler();
-
+  const error = document.querySelector('.error');
+  const errorButton = document.querySelector('.error__button');
+  //закрытие сообщения об ошибке
+  const closeMessageErrorHandler = () => {
+    error.classList.add('hidden');
+    error.remove();
+  };
+  // при нажатии на Esc
+  const closeMessageErrorEscHandler = (evt) => {
+    if (isEscEvent(evt)) {
+      closeMessageErrorHandler();
+    }
+  };
+  // при нажатии вне поля
+  const closeMessageErrorOutHandler = (evt) => {
+    if (evt.target === error) {
+      closeMessageErrorHandler();
+    }
+  };
   errorButton.addEventListener('click', closeMessageErrorHandler);
   document.addEventListener('click', closeMessageErrorOutHandler);
   document.addEventListener('keydown', closeMessageErrorEscHandler);
@@ -138,13 +135,10 @@ const showMessageError = () => {
 const userFormSubmitHandler = (evt) => {
   evt.preventDefault();
   sendImages(
-    () => {
-      showMessageSuccess();
-    },
-    () => {
-      showMessageError();
-    },
+    () => showMessageSuccess(),
+    () => showMessageError(),
     new FormData(evt.target),
   );
 };
 uploadForm.addEventListener('submit', userFormSubmitHandler);
+

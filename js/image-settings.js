@@ -61,6 +61,7 @@ noUiSlider.create(slider, {
   },
   start: 100,
   step: 1,
+  connect: 'lower',
   format: {
     to: function (value) {
       if (Number.isInteger(value)) {

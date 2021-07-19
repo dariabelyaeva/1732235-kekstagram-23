@@ -27,20 +27,24 @@ const modalCloseEscHandler = (evt) => {
     modalCloseHandler();
   }
 };
-document.addEventListener('keydown', modalCloseEscHandler);
+
 //открытие формы
 const modalOpenHandler = () => {
   editPanel.classList.remove('hidden');
   body.classList.add('modal-open');
+  document.addEventListener('keydown', modalCloseEscHandler);
+  uploadCancelButton.addEventListener('click', modalCloseHandler);
 };
 uploadButton.addEventListener('click', modalOpenHandler);
-//закрытие формы и удаление обработчика Esc
+
+//закрытие формы и удаление обработчиков в соответствии с критерием Б26
 function modalCloseHandler () {
   editPanel.classList.add('hidden');
   body.classList.remove('modal-open');
   resetForm();
+  document.removeEventListener('keydown', modalCloseEscHandler);
+  uploadCancelButton.removeEventListener('click', modalCloseHandler);
 }
-uploadCancelButton.addEventListener('click', modalCloseHandler);
 
 //валидация хэштега и описания
 const hashTagInputHandler = (evt) => {
@@ -142,3 +146,4 @@ const userFormSubmitHandler = (evt) => {
 };
 uploadForm.addEventListener('submit', userFormSubmitHandler);
 
+export {showMessageError};

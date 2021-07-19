@@ -1,10 +1,8 @@
-import {isEscEvent} from './util.js';
+import {isEscEvent} from './utils/isEscEvent.js';
 import {sendImages} from './api.js';
-import {resetEffect} from './image-settings.js';
+import {resetEffect} from './pictureEffects.js';
+import {descriptionInputHandler, hashTagInputHandler} from './utils/validation.js';
 
-const COMMENT_MAX_SYMBOLS = 140;
-const HASHTAG_MAX_AMOUNT = 5;
-const HASHTAG_REG_EXP = /^#[A-Za-zА-Я-а-я0-9]{1,19}$/;
 const body = document.body;
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadButton = document.querySelector('#upload-file');
@@ -30,6 +28,7 @@ const modalCloseEscHandler = (evt) => {
 
 //открытие формы
 const modalOpenHandler = () => {
+  resetForm();
   editPanel.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', modalCloseEscHandler);
@@ -45,37 +44,6 @@ function modalCloseHandler () {
   document.removeEventListener('keydown', modalCloseEscHandler);
   uploadCancelButton.removeEventListener('click', modalCloseHandler);
 }
-
-//валидация хэштега и описания
-const hashTagInputHandler = (evt) => {
-  const tagsInput = evt.target;
-  const tags = tagsInput.value.split(' ');
-  const isValid = tags.every((tag) => HASHTAG_REG_EXP.test(tag));
-  if(!isValid){
-    tagsInput.setCustomValidity('Ошибка ввода');
-    hashTagInput.style.border = '5px solid red';
-  } else if (tags.length > HASHTAG_MAX_AMOUNT) {
-    tagsInput.setCustomValidity(`Не более ${HASHTAG_MAX_AMOUNT} хэштегов!`);
-  } else if (!(tags.length === new Set(tags).size)) {
-    tagsInput.setCustomValidity('Хэштеги не могут быть одинаковыми!');
-  } else {
-    tagsInput.setCustomValidity('');
-  }
-  tagsInput.reportValidity();
-};
-hashTagInput.addEventListener('input', hashTagInputHandler);
-
-const descriptionInputHandler = (evt) => {
-  const descriptionInputForm = evt.target;
-  if (descriptionInputForm.value.length > COMMENT_MAX_SYMBOLS) {
-    descriptionInput.setCustomValidity(`Максимальное количество символов ${COMMENT_MAX_SYMBOLS}. Удалите ${descriptionInputForm.value.length - COMMENT_MAX_SYMBOLS} символов.`);
-    descriptionInput.style.border = '5px solid red';
-  } else {
-    descriptionInput.setCustomValidity('');
-  }
-  descriptionInput.reportValidity();
-};
-descriptionInput.addEventListener('input', descriptionInputHandler);
 
 //успешная отправка
 const showMessageSuccess = () => {
@@ -107,12 +75,17 @@ const showMessageSuccess = () => {
 };
 
 // ошибка отправки
-const showMessageError = () => {
+const showMessageError = (message) => {
   const errorElement = errorTemplate.cloneNode(true);
+  const errorMessage = errorElement.querySelector('.error__title');
+  const errorButton = errorElement.querySelector('.error__button');
+  if (message){
+    errorMessage.textContent = message;
+    errorButton.textContent = 'ОК';
+  }
   body.appendChild(errorElement);
   modalCloseHandler();
   const error = document.querySelector('.error');
-  const errorButton = document.querySelector('.error__button');
   //закрытие сообщения об ошибке
   const closeMessageErrorHandler = () => {
     error.classList.add('hidden');
@@ -146,4 +119,6 @@ const userFormSubmitHandler = (evt) => {
 };
 uploadForm.addEventListener('submit', userFormSubmitHandler);
 
+hashTagInput.addEventListener('input', hashTagInputHandler);
+descriptionInput.addEventListener('input', descriptionInputHandler);
 export {showMessageError};
